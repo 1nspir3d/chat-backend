@@ -18,15 +18,25 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "db:create": "docker run --name chat-db -v pgdata:/var/lib/postgresql/data -e POSTGRES_PASSWORD=admin -e POSTGRES_USER=admin -p 5432:5432 -d postgres",
+    "db:start": "docker start chat-db"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
+    "@nestjs/config": "^2.2.0",
     "@nestjs/core": "^8.0.0",
+    "@nestjs/mapped-types": "^1.2.0",
     "@nestjs/platform-express": "^8.0.0",
+    "@nestjs/typeorm": "^9.0.1",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
+    "dotenv": "^16.0.3",
+    "pg": "^8.8.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^7.2.0"
+    "rxjs": "^7.2.0",
+    "typeorm": "^0.3.11"
   },
   "devDependencies": {
     "@nestjs/cli": "^8.0.0",
@@ -36,6 +46,7 @@
     "@types/jest": "27.5.0",
     "@types/node": "^16.0.0",
     "@types/supertest": "^2.0.11",
+    "@types/uuid": "^9.0.0",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "eslint": "^8.0.1",
