@@ -1,7 +1,12 @@
+import ChatEntity from 'src/modules/chats/entities/chat.entity';
+import MessageEntity from 'src/modules/messages/entities/message.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinTable,
+  ManyToMany,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -23,7 +28,7 @@ export default class UserEntity {
   @CreateDateColumn({
     transformer: {
       to: (value: Date) => value,
-      from: (value: Date) => value.getTime(),
+      from: (value: Date) => value?.getTime() ?? '',
     },
   })
   createdAt: number;
@@ -31,10 +36,17 @@ export default class UserEntity {
   @UpdateDateColumn({
     transformer: {
       to: (value: Date) => value,
-      from: (value: Date) => value.getTime(),
+      from: (value: Date) => value?.getTime() ?? '',
     },
   })
   updatedAt: number;
+
+  @ManyToMany(() => ChatEntity, (chat) => chat.users)
+  @JoinTable()
+  chats: ChatEntity[];
+
+  @OneToMany(() => MessageEntity, (message) => message.user)
+  messages: MessageEntity[];
 
   toResponse() {
     const { password, toResponse, ...rest } = this;

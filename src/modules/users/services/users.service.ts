@@ -23,6 +23,7 @@ export class UsersService {
       where: {
         id,
       },
+      relations: ['chats'],
     });
 
     if (user) return user.toResponse();
