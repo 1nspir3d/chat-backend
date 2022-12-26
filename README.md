@@ -61,6 +61,47 @@ yarn run start:dev
 Now when database and server are running we can test our endpoints\
 Open Postman and import `chat-backend.postman_collection.json` file which can be found in the root of this project
 
+![image](https://user-images.githubusercontent.com/62627903/209536232-21514518-f4d2-43f4-9425-be3cef779882.png)
+
+
 This collection has pre-written requests for `users` and `chats` endpoints
 
 In order to test `messages` you have to create a new WebSocket request
+
+![image](https://user-images.githubusercontent.com/62627903/209536493-ee4547c9-4ca5-4a24-a4a6-53f79a917f55.png)
+
+![image](https://user-images.githubusercontent.com/62627903/209537039-08a66ea8-7262-4acf-b127-5b2246b6365d.png)
+
+Make sure you have selected Socket.IO instead of Raw, have the right server URL entered, JSON selected as the type of composed message, `Acknowledgement` enabled and existing event name entered in the input field
+
+Server URL - `http://localhost:3000/messages`\
+List of available event names:
+- `createMessage`
+- `findAllMessages`
+- `findOneMessage`
+- `updateMessage`
+
+Example of composed messages for each event:
+- `createMessage`
+  ```json
+  {
+    "value": "New message",
+    "authorId": "get id from user",
+    "chatId": "get id from chat",
+    // this value should be generated on the front-end side but for testing purpose you can enter any number
+    "createdAt": 12314123123 
+  }
+  ```
+- `findOneMessage`
+  ```json
+  {
+    "id": "get id of the message"
+  }
+  ```
+- `updateMessage`
+  ```json
+  {
+    "id": "get it of the message",
+    "value": "updated message"
+  }
+  ```
